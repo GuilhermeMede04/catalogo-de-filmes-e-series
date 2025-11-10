@@ -8,9 +8,8 @@
   <header class="site-header">
     <div class="header-row">
       <div class="logo">
-        <img src="/img/logotipo.png" alt="Logo do site">
+        <img src="img/logotipo.png" alt="Logo do site">
       </div>
-
       <nav class="menu" aria-label="Menu principal">
         <a href="#" class="menu-link">Início</a>
         <a href="#" class="menu-link">Filmes</a>
@@ -19,12 +18,17 @@
       </nav>
     </div>
   </header>
-
     <main>
         <section class="catalog-section">
             <h2 class="catalog-title">Lançamentos 2025</h2>
+            <label for="genre-select">Filtrar por gênero:</label>
+            <select id="genre-select">
+                <option value="">Todos</option>
+                <!-- Os gêneros serão preenchidos aqui via JavaScript -->
+            </select>
             <div id="catalog" class="catalog-grid"></div>
             <div id="catalog-status" class="catalog-status"></div>
+            <button id="load-more" class="load-more">Carregar mais</button>
         </section>
     </main>
 

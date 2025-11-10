@@ -4,7 +4,7 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: #000; /* adiciona fundo preto ao body */
+    background: #000;
 }
 
 .site-header {
@@ -67,7 +67,7 @@ html, body {
 
 .catalog-section{
     padding: 20px;
-    padding-top: 100px; /* adiciona espaço acima */
+    padding-top: 100px;
     background: #000;
     color: #ffffff;
     min-height: 60vh;
@@ -146,6 +146,28 @@ html, body {
     margin-top: 12px;
     color: rgba(255,255,255,0.85);
     padding-left: 8px;
+}
+
+.load-more {
+    background-color: #007bff; /* cor do botão */
+    color: white; /* cor do texto */
+    border: none; /* sem borda */
+    padding: 10px 20px; /* espaçamento interno */
+    border-radius: 5px; /* bordas arredondadas */
+    cursor: pointer; /* cursor de mão */
+    margin: 20px auto; /* centraliza o botão */
+    display: block; /* faz o botão ser um bloco */
+}
+
+.load-more:hover {
+    background-color: #0056b3; /* cor ao passar o mouse */
+}
+
+#genre-select {
+    margin: 20px 0; /* espaçamento em cima e embaixo */
+    padding: 10px; /* espaçamento interno */
+    border-radius: 5px; /* bordas arredondadas */
+    border: 1px solid #ccc; /* borda cinza */
 }
 
 @media (max-width: 560px){

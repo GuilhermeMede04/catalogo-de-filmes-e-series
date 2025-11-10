@@ -4,6 +4,12 @@ const IMAGE_BASE = 'https://image.tmdb.org/t/p/w342';
 
 const catalogEl = document.getElementById('catalog');
 const statusEl = document.getElementById('catalog-status');
+const loadMoreBtn = document.getElementById('load-more');
+const genreSelect = document.getElementById('genre-select');
+
+let currentPage = 1;
+let totalPages = 1;
+let selectedGenre = '';
 
 function escapeHtml(text) {
     if (!text) return '';
@@ -23,8 +29,9 @@ async function fetchGenres() {
     return new Map(data.genres.map(g => [g.id, g.name]));
 }
 
-async function fetchMovies(page = 1) {
-    const url = `${API_BASE}/discover/movie?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&primary_release_year=2025&include_adult=false&page=${page}`;
+// Busca filmes de 2025
+async function fetchMovies(page = 1, genre = '') {
+    const url = `${API_BASE}/discover/movie?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&primary_release_year=2025&include_adult=false&page=${page}${genre ? `&with_genres=${genre}` : ''}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error('Erro ao carregar filmes');
     return await res.json();
@@ -71,13 +78,21 @@ async function init() {
         statusEl.textContent = 'Carregando gêneros...';
         const genreMap = await fetchGenres();
 
+        genreMap.forEach((name, id) => {
+            const option = document.createElement('option');
+            option.value = id;
+            option.textContent = name;
+            genreSelect.appendChild(option);
+        });
+
         statusEl.textContent = 'Buscando filmes de 2025...';
-        const data = await fetchMovies(1);
+        const data = await fetchMovies(currentPage, selectedGenre);
 
         clearCatalog();
         if (data.results && data.results.length) {
             renderMovies(data.results, genreMap);
-            statusEl.textContent = `Exibindo ${data.results.length} filmes de 2025 (página 1 de ${data.total_pages}).`;
+            totalPages = data.total_pages; // Atualiza total de páginas
+            statusEl.textContent = `Exibindo ${data.results.length} filmes de 2025 (página ${currentPage} de ${totalPages}).`;
         } else {
             statusEl.textContent = 'Nenhum filme encontrado para 2025.';
         }
@@ -86,5 +101,35 @@ async function init() {
         statusEl.textContent = 'Erro ao carregar dados. Veja o console.';
     }
 }
+
+async function loadMoreMovies() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        const genreMap = await fetchGenres();
+        const data = await fetchMovies(currentPage, selectedGenre);
+        renderMovies(data.results, genreMap);
+        statusEl.textContent = `Exibindo mais filmes (página ${currentPage} de ${totalPages}).`;
+    } else {
+        statusEl.textContent = 'Não há mais filmes para carregar.';
+        loadMoreBtn.style.display = 'none';
+    }
+}
+
+loadMoreBtn.addEventListener('click', loadMoreMovies);
+
+genreSelect.addEventListener('change', async (event) => {
+    selectedGenre = event.target.value;
+    currentPage = 1;
+    const genreMap = await fetchGenres();
+    const data = await fetchMovies(currentPage, selectedGenre);
+    clearCatalog();
+    if (data.results && data.results.length) {
+        renderMovies(data.results, genreMap);
+        totalPages = data.total_pages;
+        statusEl.textContent = `Exibindo ${data.results.length} filmes de 2025 (página ${currentPage} de ${totalPages}).`;
+    } else {
+        statusEl.textContent = 'Nenhum filme encontrado para 2025.';
+    }
+});
 
 document.addEventListener('DOMContentLoaded', init);
