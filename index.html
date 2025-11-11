@@ -14,7 +14,7 @@
         <a href="#" class="menu-link">Início</a>
         <a href="#" class="menu-link">Filmes</a>
         <a href="#" class="menu-link">Séries</a>
-        <a href="#" class="menu-link">Favoritos</a>
+        <a href="#" class="menu-link">Sobre Nós</a>
       </nav>
     </div>
   </header>
@@ -30,6 +30,18 @@
             <div id="catalog-status" class="catalog-status"></div>
             <button id="load-more" class="load-more">Carregar mais</button>
         </section>
+        <!--secao de detalhes-->
+        <section id="details-section" class="details-section hidden">
+    <div class="details-container">
+      <!--botao para retornar ao catalogo-->
+        <button id="back-button" class="back-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+          width="24px" fill="#e3e3e3"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></button>
+        <!--onde os detalhes serao carregados dinamicamente-->
+        <div id="media-details" class="media-details">
+
+        </div>
+    </div>
+</section>
     </main>
 
     <script src="script.js"></script>
