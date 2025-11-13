@@ -1,49 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+   
   <meta charset="utf-8">
+   
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="header-row">
-      <div class="logo">
-        <img src="img/logotipo.png" alt="Logo do site">
+    <header class="site-header">
+        <div class="header-row">
+            <div class="logo">
+                <img src="img/logotipo.png" alt="Logo do site">
+              </div>
+            <nav class="menu" aria-label="Menu principal">
+                <a href="#" class="menu-link">Início</a>
+                <a href="#" class="menu-link">Filmes</a>
+                <a href="#" class="menu-link">Séries</a>
+                <a href="#" class="menu-link">Sobre Nós</a>
+              </nav>
+          </div>
+      </header>
+      <main>
+            <section class="catalog-section">
+                  <h2 class="catalog-title">Lançamentos 2025</h2>
+                  <label for="genre-select">Filtrar por gênero:</label>
+                  <select id="genre-select">
+                        <option value="">Todos</option>
+                                    </select>
+
+      <div id="catalog-loader" class="loader-container hidden">
+        <div class="spinner"></div>
       </div>
-      <nav class="menu" aria-label="Menu principal">
-        <a href="#" class="menu-link">Início</a>
-        <a href="#" class="menu-link">Filmes</a>
-        <a href="#" class="menu-link">Séries</a>
-        <a href="#" class="menu-link">Sobre Nós</a>
-      </nav>
-    </div>
-  </header>
-    <main>
-        <section class="catalog-section">
-            <h2 class="catalog-title">Lançamentos 2025</h2>
-            <label for="genre-select">Filtrar por gênero:</label>
-            <select id="genre-select">
-                <option value="">Todos</option>
-                <!-- Os gêneros serão preenchidos aqui via JavaScript -->
-            </select>
-            <div id="catalog" class="catalog-grid"></div>
-            <div id="catalog-status" class="catalog-status"></div>
-            <button id="load-more" class="load-more">Carregar mais</button>
-        </section>
-        <!--secao de detalhes-->
-        <section id="details-section" class="details-section hidden">
-    <div class="details-container">
-      <!--botao para retornar ao catalogo-->
-        <button id="back-button" class="back-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-          width="24px" fill="#e3e3e3"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></button>
-        <!--onde os detalhes serao carregados dinamicamente-->
-        <div id="media-details" class="media-details">
-
+      <div id="catalog-error" class"error-message hidden"></div>
+                  <div id="catalog" class="catalog-grid"></div>
+                  <div id="catalog-status" class="catalog-status"></div>
+                  <button id="load-more" class="load-more">Carregar mais</button>
+             
+    </section>
+           
+            <section id="details-section" class="details-section hidden">
+          <div class="details-container">
+                      <button id="back-button" class="back-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"           width="24px" fill="#e3e3e3">
+            <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+          </svg></button>
+               
+        <div id="details-loader" class="loader-container hidden">
+          <div class="spinner"></div>
         </div>
-    </div>
-</section>
-    </main>
+        <div id="details-error" class="error-message hidden"></div>
+                <div id="media-details" class="media-details">
 
-    <script src="script.js"></script>
+                  </div>
+           
+      </div>
+    </section>
+        </main>
+
+     
+  <script src="script.js"></script>
 </body>
+
 </html>
