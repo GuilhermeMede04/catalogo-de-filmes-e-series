@@ -1,0 +1,33 @@
+.catalog-section {
+  padding: var(--space-xl);
+  background: var(--color-bg);
+  min-height: 60vh;
+}
+
+.catalog-title {
+  margin: 0 0 var(--space-md) var(--space-sm);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.catalog-status {
+  margin-top: var(--space-md);
+  color: var(--color-text-secondary);
+  padding-left: var(--space-sm);
+}
+
+label[for="genre-select"] {
+  font-weight: 600;
+  margin-right: var(--space-md);
+  margin-left: var(--space-sm);
+}
+
+#genre-select {
+  margin: var(--space-xl) 0 var(--space-xl) 0;
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-3);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
