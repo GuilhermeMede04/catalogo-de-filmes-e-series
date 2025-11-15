@@ -71,3 +71,18 @@ select:focus-visible {
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button, select, a {
+  transition: var(--transition-fast);
+}
+
+body {
+  scroll-behavior: smooth;
+}
+

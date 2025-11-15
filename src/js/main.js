@@ -2,14 +2,11 @@ import { state } from "./state.js";
 import * as api from "./api.js";
 import * as ui from "./ui.js";
 
-// --- Controladores de Lógica ---
-
 async function handlePageLoad() {
   try {
     ui.showCatalogLoader();
     state.genreMap = await api.fetchGenres();
     ui.renderGenreOptions(state.genreMap);
-
     await loadCatalogMedia();
   } catch (err) {
     console.error(err);
@@ -23,6 +20,7 @@ async function loadCatalogMedia() {
     ui.hideCatalogLoader();
 
     if (data.results && data.results.length) {
+      ui.clearCatalog();
       ui.renderMovies(data.results, state.genreMap, handleCardClick);
       state.totalPages = data.total_pages;
       ui.updateCatalogStatus(`Exibindo ${data.results.length} itens.`);
@@ -51,8 +49,9 @@ async function handleLoadMore() {
       ui.updateCatalogStatus(`Exibindo mais itens...`);
     }
 
-    const hasMore = state.currentPage < state.totalPages;
+    const hasMore = state.currentPage < state.total_pages;
     ui.updateLoadMoreButton(false, hasMore);
+
     if (!hasMore) {
       ui.updateCatalogStatus("Fim dos resultados.");
     }
@@ -78,6 +77,8 @@ async function handleCardClick(mediaId, mediaType) {
   try {
     ui.showDetailsLoader();
     const data = await api.fetchMediaDetails(mediaId, mediaType);
+    
+    data.media_type = mediaType;
     ui.renderMediaDetails(data);
     ui.hideDetailsLoader();
   } catch (err) {
@@ -90,11 +91,101 @@ async function handleCardClick(mediaId, mediaType) {
   }
 }
 
-function init() {
-  document.addEventListener("DOMContentLoaded", handlePageLoad);
-  ui.elements.loadMoreBtn.addEventListener("click", handleLoadMore);
-  ui.elements.genreSelect.addEventListener("change", handleGenreChange);
-  ui.elements.backButton.addEventListener("click", ui.showCatalogPage);
+async function loadMoviesSection() {
+  try {
+    ui.showMoviesLoader();
+    const movies = await api.fetchPopularMovies();
+    ui.renderMoviesSection(movies);
+    ui.hideMoviesLoader();
+  } catch (err) {
+    console.error(err);
+    ui.showMoviesError("Erro ao carregar filmes.");
+  }
 }
 
-init();
+async function loadSeriesSection() {
+  try {
+    ui.showSeriesLoader();
+    const series = await api.fetchPopularSeries();
+    ui.renderSeriesSection(series);
+    ui.hideSeriesLoader();
+  } catch (err) {
+    console.error(err);
+    ui.showSeriesError("Erro ao carregar séries.");
+  }
+}
+
+function init() {
+ 
+  ui.elements.loadMoreBtn?.addEventListener("click", handleLoadMore);
+  ui.elements.genreSelect?.addEventListener("change", handleGenreChange);
+  ui.elements.backButton?.addEventListener("click", ui.showCatalogPage);
+
+  const catalogSection = document.querySelector(".catalog-section");
+  const detailsSection = document.getElementById("details-section");
+  const aboutSection = document.getElementById("about-section");
+  const moviesSection = document.getElementById("movies-section");
+  const seriesSection = document.getElementById("series-section");
+
+  const menuLinks = document.querySelectorAll(".menu-link");
+  const homeMenu = Array.from(menuLinks).find(link => link.textContent.includes("Início"));
+  const aboutMenu = Array.from(menuLinks).find(link => link.textContent.includes("Sobre Nós"));
+  const moviesMenu = Array.from(menuLinks).find(link => link.textContent.includes("Filmes"));
+  const seriesMenu = Array.from(menuLinks).find(link => link.textContent.includes("Séries"));
+
+  function hideAllSections() {
+    catalogSection?.classList.add("hidden");
+    detailsSection?.classList.add("hidden");
+    aboutSection?.classList.add("hidden");
+    moviesSection?.classList.add("hidden");
+    seriesSection?.classList.add("hidden");
+  }
+
+  function showCatalog() {
+    hideAllSections();
+    catalogSection?.classList.remove("hidden");
+  }
+
+  function showAbout() {
+    hideAllSections();
+    aboutSection?.classList.remove("hidden");
+  }
+
+  function showMovies() {
+    hideAllSections();
+    moviesSection?.classList.remove("hidden");
+  }
+
+  function showSeries() {
+    hideAllSections();
+    seriesSection?.classList.remove("hidden");
+  }
+
+  homeMenu?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showCatalog();
+  });
+
+  aboutMenu?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showAbout();
+  });
+
+  moviesMenu?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    showMovies();
+    await loadMoviesSection();
+  });
+
+  seriesMenu?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    showSeries();
+    await loadSeriesSection();
+  });
+}
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+  init();
+  await handlePageLoad();
+});

@@ -63,14 +63,84 @@
 
         <div id="details-error" class="error-message hidden" role="status"></div>
 
-        <div id="media-details" class="media-details">
+        <div id="media-details" class="media-details"></div>
+
+      </div>
+    </section>
+
+<section id="movies-section" class="hidden movies-section">
+  <h2>Filmes Populares</h2>
+
+  <div id="movies-loader" class="loader-container hidden">
+    <div class="spinner"></div>
+  </div>
+
+  <div id="movies-error" class="error-message hidden"></div>
+
+  <div id="movies-list" class="media-grid"></div>
+</section>
+
+    <section id="series-section" class="hidden series-section">
+  <h2>Séries Populares</h2>
+
+  <div id="series-loader" class="loader-container hidden">
+    <div class="spinner"></div>
+  </div>
+
+  <div id="series-error" class="error-message hidden"></div>
+
+  <div id="series-list" class="media-grid"></div>
+</section>
+
+    <section id="about-section" class="about-section hidden">
+      <div class="about-container">
+
+        <h2 class="about-title">Nossa Equipe</h2>
+        <p class="about-subtitle">Conheça os desenvolvedores responsáveis pelo projeto</p>
+
+        <div class="team-grid">
+
+          <div class="team-card">
+            <img class="team-photo" src="src/assets/img/user1.jpg" alt="Foto do membro da equipe">
+            <h3 class="team-name">Lucas Vieira</h3>
+            <p class="team-role">Front-End</p>
+            <p class="team-description">Responsável pela interface, responsividade e components UI.</p>
+          </div>
+
+          <div class="team-card">
+            <img class="team-photo" src="src/assets/img/user2.jpg" alt="Foto do membro da equipe">
+            <h3 class="team-name">Kaio</h3>
+            <p class="team-role">Front-End</p>
+            <p class="team-description">Integração com APIs, lógica do sistema e modularização.</p>
+          </div>
+
+          <div class="team-card">
+            <img class="team-photo" src="src/assets/img/user3.jpg" alt="Foto do membro da equipe">
+            <h3 class="team-name">Guilherme</h3>
+            <p class="team-role">Front-End</p>
+            <p class="team-description">Responsável pela identidade visual e usabilidade.</p>
+          </div>
+
+          
+          <div class="team-card">
+            <img class="team-photo" src="src/assets/img/user4.jpg" alt="Foto do membro da equipe">
+            <h3 class="team-name">Filipe</h3>
+            <p class="team-role">Front-End</p>
+            <p class="team-description">Desenvolvimento de componentes, testes e otimização de performance.</p>
+          </div>
+
         </div>
 
       </div>
     </section>
+
   </main>
 
   <script type="module" src="src/js/main.js"></script>
-</body>
 
+  <footer class="site-footer">
+    <p>Projeto desenvolvido por Rian Kaio | Lucas Vieira | Guilherme Medeiros | Filipe Costa — 2025</p>
+  </footer>
+
+</body>
 </html>

@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
-
 @import "_base.css";
 @import "_utils.css";
 @import "components/_header.css";
@@ -7,3 +6,5 @@
 @import "components/_filters.css";
 @import "components/_card.css";
 @import "components/_details.css";
+@import "components/_about.css";
+@import "components/_footer.css";
