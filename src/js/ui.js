@@ -176,14 +176,17 @@ export function showMoviesError(message) {
   elements.moviesList?.classList.remove("hidden");
 }
 
-export function renderMoviesSection(movies) {
+export function renderMoviesSection(movies, onCardClick) {
   if (!elements.moviesList) return;
   elements.moviesList.innerHTML = "";
+
   movies.forEach(movie => {
     const card = createCard(movie, "movie");
+    card.addEventListener("click", () => onCardClick(movie.id, "movie"));
     elements.moviesList.appendChild(card);
   });
 }
+
 
 export function showSeriesLoader() {
   elements.seriesError?.classList.add("hidden");
@@ -202,14 +205,17 @@ export function showSeriesError(message) {
   elements.seriesList?.classList.remove("hidden");
 }
 
-export function renderSeriesSection(series) {
+export function renderSeriesSection(series, onCardClick) {
   if (!elements.seriesList) return;
   elements.seriesList.innerHTML = "";
+
   series.forEach(tv => {
     const card = createCard(tv, "tv");
+    card.addEventListener("click", () => onCardClick(tv.id, "tv"));
     elements.seriesList.appendChild(card);
   });
 }
+
 
 function createCard(item, type, genreMap) {
   const poster = item.poster_path ? `https://image.tmdb.org/t/p/w300${item.poster_path}` : "src/assets/img/no-image.png";

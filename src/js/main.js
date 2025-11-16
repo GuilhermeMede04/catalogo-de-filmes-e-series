@@ -95,7 +95,7 @@ async function loadMoviesSection() {
   try {
     ui.showMoviesLoader();
     const movies = await api.fetchPopularMovies();
-    ui.renderMoviesSection(movies);
+    ui.renderMoviesSection(movies, handleCardClick);
     ui.hideMoviesLoader();
   } catch (err) {
     console.error(err);
@@ -107,7 +107,7 @@ async function loadSeriesSection() {
   try {
     ui.showSeriesLoader();
     const series = await api.fetchPopularSeries();
-    ui.renderSeriesSection(series);
+    ui.renderSeriesSection(series, handleCardClick);
     ui.hideSeriesLoader();
   } catch (err) {
     console.error(err);
