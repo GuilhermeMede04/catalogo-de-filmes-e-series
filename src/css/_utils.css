@@ -1,7 +1,8 @@
+/*esconde elementos*/
 .hidden {
   display: none !important;
 }
-
+/*limita texto*/
 .texto-limitado {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -10,14 +11,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+/*container do loader*/
 .loader-container {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: var(--space-xxl) 0;
 }
-
+/*spinner de carregamento*/
 .spinner {
   border: 5px solid var(--color-surface-2);
   width: 50px;
@@ -26,7 +27,7 @@
   border-left-color: var(--color-primary);
   animation: spin 1s ease infinite;
 }
-
+/*animacao do spinner*/
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -35,7 +36,7 @@
     transform: rotate(360deg);
   }
 }
-
+/*mensagem de erro*/
 .error-message {
   color: var(--color-error);
   background-color: var(--color-error-bg);
@@ -47,4 +48,26 @@
   font-weight: bold;
   width: 90%;
   max-width: 600px;
+}
+/* card da equipe*/
+.team-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+/*container principal*/
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+/*limitar titulo do filme*/
+.movie-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  max-height: 2.4rem;
 }

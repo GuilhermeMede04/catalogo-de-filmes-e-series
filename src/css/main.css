@@ -1,4 +1,6 @@
+/*importacao da fonte poppins do google fonts*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+/*importacao dos arquivos de estilo organizados*/
 @import "_base.css";
 @import "_utils.css";
 @import "components/_header.css";

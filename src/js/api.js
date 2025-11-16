@@ -1,9 +1,14 @@
 const API_KEY = "70e5c08fa5e2c8c560ca36e87aa1f913";
 const API_BASE = "https://api.themoviedb.org/3";
 
+// Busca todos os generos de filmes e series
 export async function fetchGenres() {
-  const movieRes = await fetch(`${API_BASE}/genre/movie/list?api_key=${API_KEY}&language=pt-BR`);
-  const tvRes = await fetch(`${API_BASE}/genre/tv/list?api_key=${API_KEY}&language=pt-BR`);
+  const movieRes = await fetch(
+    `${API_BASE}/genre/movie/list?api_key=${API_KEY}&language=pt-BR`
+  );
+  const tvRes = await fetch(
+    `${API_BASE}/genre/tv/list?api_key=${API_KEY}&language=pt-BR`
+  );
 
   if (!movieRes.ok || !tvRes.ok) throw new Error("Erro ao carregar gêneros");
 
@@ -11,15 +16,25 @@ export async function fetchGenres() {
   const tvData = await tvRes.json();
 
   const allGenres = [...movieData.genres, ...tvData.genres];
-  const uniqueGenres = Array.from(new Map(allGenres.map((g) => [g.id, g])).values());
+  const uniqueGenres = Array.from(
+    new Map(allGenres.map((g) => [g.id, g])).values()
+  );
   return new Map(uniqueGenres.map((g) => [g.id, g.name]));
 }
 
+// Busca filmes e series com filtro
 export async function fetchMedia(page = 1, genre = "") {
-  const moviesUrl = `${API_BASE}/discover/movie?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&primary_release_year=2025&include_adult=false&page=${page}${genre ? `&with_genres=${genre}` : ""}`;
-  const seriesUrl = `${API_BASE}/discover/tv?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&first_air_date_year=2025&include_adult=false&page=${page}${genre ? `&with_genres=${genre}` : ""}`;
+  const moviesUrl = `${API_BASE}/discover/movie?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&primary_release_year=2025&include_adult=false&page=${page}${
+    genre ? `&with_genres=${genre}` : ""
+  }`;
+  const seriesUrl = `${API_BASE}/discover/tv?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&first_air_date_year=2025&include_adult=false&page=${page}${
+    genre ? `&with_genres=${genre}` : ""
+  }`;
 
-  const [moviesRes, seriesRes] = await Promise.all([fetch(moviesUrl), fetch(seriesUrl)]);
+  const [moviesRes, seriesRes] = await Promise.all([
+    fetch(moviesUrl),
+    fetch(seriesUrl),
+  ]);
 
   if (!moviesRes.ok || !seriesRes.ok) throw new Error("Erro ao carregar dados");
 
@@ -28,18 +43,24 @@ export async function fetchMedia(page = 1, genre = "") {
 
   const combinedResults = [
     ...moviesData.results.map((item) => ({ ...item, media_type: "movie" })),
-    ...seriesData.results.map((item) => ({ ...item, media_type: "tv" }))
+    ...seriesData.results.map((item) => ({ ...item, media_type: "tv" })),
   ];
 
   return {
     results: combinedResults,
-    total_pages: Math.max(moviesData.total_pages || 0, seriesData.total_pages || 0)
+    total_pages: Math.max(
+      moviesData.total_pages || 0,
+      seriesData.total_pages || 0
+    ),
   };
 }
 
+// Busca detalhes de um filme ou serie
 export async function fetchMediaDetails(mediaId, mediaType) {
   const endpoint = mediaType === "movie" ? "movie" : "tv";
-  const response = await fetch(`${API_BASE}/${endpoint}/${mediaId}?api_key=${API_KEY}&language=pt-BR`);
+  const response = await fetch(
+    `${API_BASE}/${endpoint}/${mediaId}?api_key=${API_KEY}&language=pt-BR`
+  );
   if (!response.ok) {
     if (response.status === 404) throw new Error("Item não encontrado.");
     throw new Error("Não foi possível carregar os detalhes.");
@@ -47,16 +68,35 @@ export async function fetchMediaDetails(mediaId, mediaType) {
   return await response.json();
 }
 
+// Busca filmes populares
 export async function fetchPopularMovies(page = 1) {
-  const res = await fetch(`${API_BASE}/movie/popular?api_key=${API_KEY}&language=pt-BR&page=${page}`);
+  const res = await fetch(
+    `${API_BASE}/movie/popular?api_key=${API_KEY}&language=pt-BR&page=${page}`
+  );
   if (!res.ok) throw new Error("Erro ao carregar filmes populares");
   const data = await res.json();
-  return data.results;
+  return data;
 }
 
+// Busca series populares
 export async function fetchPopularSeries(page = 1) {
-  const res = await fetch(`${API_BASE}/tv/popular?api_key=${API_KEY}&language=pt-BR&page=${page}`);
+  const res = await fetch(
+    `${API_BASE}/tv/popular?api_key=${API_KEY}&language=pt-BR&page=${page}`
+  );
   if (!res.ok) throw new Error("Erro ao carregar séries populares");
   const data = await res.json();
-  return data.results;
+  return data;
+}
+
+// Busca recomendacoes de um filme ou serie
+export async function fetchRecommendations(mediaId, mediaType) {
+  const endpoint = mediaType === "movie" ? "movie" : "tv";
+  const res = await fetch(
+    `${API_BASE}/${endpoint}/${mediaId}/recommendations?api_key=${API_KEY}&language=pt-BR&page=1`
+  );
+  if (!res.ok) throw new Error("Erro ao carregar recomendações");
+
+  const data = await res.json();
+
+  return data.results.map((item) => ({ ...item, media_type: mediaType }));
 }

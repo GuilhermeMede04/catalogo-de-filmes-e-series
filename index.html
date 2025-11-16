@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo de Filmes e Séries - Lançamentos 2025</title>
   <meta name="description" content="Explore os lançamentos de 2025 em filmes e séries. Filtre por gênero e descubra seus próximos títulos favoritos.">
-
   <link rel="stylesheet" href="src/css/main.css">
 </head>
 
@@ -26,6 +25,7 @@
   </header>
 
   <main>
+    <!-- Seção Catálogo Principal -->
     <section class="catalog-section">
       <h2 class="catalog-title">Lançamentos 2025</h2>
 
@@ -45,12 +45,11 @@
       <div id="catalog" class="catalog-grid"></div>
       <div id="catalog-status" class="catalog-status"></div>
       <button id="load-more" class="load-more">Carregar mais</button>
-
     </section>
 
+    <!-- Seção Detalhes -->
     <section id="details-section" class="details-section hidden">
       <div class="details-container">
-
         <button id="back-button" class="back-button" aria-label="Voltar ao catálogo">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
             <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
@@ -65,75 +64,77 @@
 
         <div id="media-details" class="media-details"></div>
 
+        <!-- Seção Recomendações -->
+        <div class="popular-section">
+          <h2 id="details-popular-title">Recomendações</h2>
+          <div id="details-popular-loader" class="loader-container hidden">
+            <div class="spinner"></div>
+          </div>
+          <div id="details-popular-error" class="error-message hidden"></div>
+          <div id="details-popular-list" class="catalog-grid"></div>
+        </div>
       </div>
     </section>
 
-<section id="movies-section" class="hidden movies-section">
-  <h2>Filmes Populares</h2>
+    <!-- Seção Filmes -->
+    <section id="movies-section" class="hidden movies-section">
+      <h2 id="movies-title">Filmes Populares</h2>
+      <div id="movies-loader" class="loader-container hidden">
+        <div class="spinner"></div>
+      </div>
+      <div id="movies-error" class="error-message hidden"></div>
+      <div id="movies-list" class="catalog-grid"></div>
+      <button id="load-more-movies" class="load-more">Carregar mais</button>
+    </section>
 
-  <div id="movies-loader" class="loader-container hidden">
-    <div class="spinner"></div>
-  </div>
-
-  <div id="movies-error" class="error-message hidden"></div>
-
-  <div id="movies-list" class="catalog-grid"></div>
-</section>
-
+    <!-- Seção Séries -->
     <section id="series-section" class="hidden series-section">
-  <h2>Séries Populares</h2>
+      <h2>Séries Populares</h2>
+      <div id="series-loader" class="loader-container hidden">
+        <div class="spinner"></div>
+      </div>
+      <div id="series-error" class="error-message hidden"></div>
+      <div id="series-list" class="catalog-grid"></div>
+      <button id="load-more-series" class="load-more">Carregar mais</button>
+    </section>
 
-  <div id="series-loader" class="loader-container hidden">
-    <div class="spinner"></div>
-  </div>
-
-  <div id="series-error" class="error-message hidden"></div>
-
-  <div id="series-list" class="catalog-grid"></div>
-</section>
-
+    <!-- Seção Sobre -->
     <section id="about-section" class="about-section hidden">
       <div class="about-container">
-
         <h2 class="about-title">Nossa Equipe</h2>
         <p class="about-subtitle">Conheça os desenvolvedores responsáveis pelo projeto</p>
 
         <div class="team-grid">
-
           <div class="team-card">
-            <img class="team-photo" src="src/assets/img/user1.jpg" alt="Foto do membro da equipe">
+            <img class="team-photo" src="./src/assets/img/photo1.jpg" alt="Lucas Vieira - Front-End">
             <h3 class="team-name">Lucas Vieira</h3>
             <p class="team-role">Front-End</p>
             <p class="team-description">Responsável pela interface, responsividade e components UI.</p>
           </div>
 
           <div class="team-card">
-            <img class="team-photo" src="src/assets/img/user2.jpg" alt="Foto do membro da equipe">
+            <img class="team-photo" src="./src/assets/img/photo2.jpg" alt="Kaio - Front-End">
             <h3 class="team-name">Kaio</h3>
             <p class="team-role">Front-End</p>
             <p class="team-description">Integração com APIs, lógica do sistema e modularização.</p>
           </div>
 
           <div class="team-card">
-            <img class="team-photo" src="src/assets/img/user3.jpg" alt="Foto do membro da equipe">
+            <img class="team-photo" src="./src/assets/img/photo3.jpg" alt="Guilherme - Front-End">
             <h3 class="team-name">Guilherme</h3>
             <p class="team-role">Front-End</p>
             <p class="team-description">Responsável pela identidade visual e usabilidade.</p>
           </div>
 
-          
           <div class="team-card">
-            <img class="team-photo" src="src/assets/img/user4.jpg" alt="Foto do membro da equipe">
+            <img class="team-photo" src="./src/assets/img/photo4.png" alt="Filipe - Front-End">
             <h3 class="team-name">Filipe</h3>
             <p class="team-role">Front-End</p>
             <p class="team-description">Desenvolvimento de componentes, testes e otimização de performance.</p>
           </div>
-
         </div>
-
       </div>
     </section>
-
   </main>
 
   <script type="module" src="src/js/main.js"></script>
@@ -141,6 +142,6 @@
   <footer class="site-footer">
     <p>Projeto desenvolvido por Rian Kaio | Lucas Vieira | Guilherme Medeiros | Filipe Costa — 2025</p>
   </footer>
-
 </body>
+
 </html>

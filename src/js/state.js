@@ -1,3 +1,4 @@
+// Estado global
 export const state = {
   currentPage: 1,
   totalPages: 1,
